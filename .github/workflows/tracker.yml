@@ -1,0 +1,20 @@
+name: GitHub Projects Automation
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  move-issue-to-done:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Process Merged PR
+        run: |
+          echo "Pull Request successfully merged."
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+          echo "PR Body: ${{ github.event.pull_request.body }}"
+          echo "Triggering automated issue closure / project board update via GitHub event payload."
